@@ -1,55 +1,120 @@
-I. Classes modeling actors:
-User Interface:
-User Interface includes two operations:
-1. login
-2. search courses
-These two operations are shared by students, faculties and administrators
+--This repo contains final deliverables for OOP course project -- design a university
+course registration system incorporating design patterns covered on class. The
+program was coded in Java.
+
+--Files in the repo include:
+I. 'readme.txt' helping to navigate the program;
+II. 'REGIE' folder, within which there are a copy of database 'REGIE.sql' and source
+    code in the sub-directory 'REGIE' for the program to run.
+    1. About the database:
+      You could easily import the database into your local computer using
+      Mysql Workbench.
+      To download Mysql Workbench, visit
+      https://dev.mysql.com/downloads/workbench/
+      To import database into your local computer, visit
+      https://www.youtube.com/watch?v=Jvul-wr-_Bg
+      for instructions.
+    2. To run the program
+      Import the package into an IDE say IntelliJ IDEA. The main function resides
+      in 'Login.java'. Compile and run the program, if successfully connected to
+      the database, you'll be able to see a login form popped up.
+      Database connection configurations are in 'DBConnection.java'. Default User
+      Name and Password for connection are 'root' and 'pass1234'. Change according
+      to your local settings.
+III. Screenshots of UI and usage demo
+
+--Classes and methods in source code
+I. GUIs:
+1. Login
+Generate a login frame, allowing user to login with user name and password
+2. StudentHome
+Homepage for student users. If user type is Student, user will be directed to StudentHome,
+where the student can:
+    1)Choose to show courses that he currently is enrolled in
+    2)View the grades for these courses
+    3)Search a specific course by name
+    4)Register/drop a specific course by name
+    5)Safely logout
+3. StudentMain
+Student will be redirected to StudentMain when they click on Search Course or
+Register/Drop Course on StudentHome. The page will further allow student to input
+course name
+4. FacultyHome
+Homepage for faculty users. If user type is Faculty, user will be directed to
+FacultyHome, where the faculty can:
+    1)Search Course
+    2)Search students' grade of those who enrolled in the class the faculty teaches
+    2)Assign or Change Grade for students from the course he teaches
+5. FacultyMain
+Main page that allows faculty users to Search Course, search grades, and
+Assign/Change Grades with input of course name, student name and intended grade.
+
+II.Classes modeling actors
+User class:
+Has a search course method which will be shared among all type of users including
+Student, Faculty and Administrator.
 
 Student class:
-Student class extends User Interface and has four additional methods:
+Student class extends User class and has four additional methods:
 1. registerCourse
 2. dropCourse
-3. printCoursesRegistered
+3. showMyCourse
 4. viewGrades
 
 Faculty class:
-Faculty class extends User Interface and has two additional methods:
-1. assignGrade
-2. changeGrade
+Faculty class extends User class and has two additional methods:
+1. showGrade
+2. assignGrade (shared method between assign and change grades)
 
-II. DB connection:
+Administrator:
+Currently Administrator user could only search course(however no GUI form built for
+Administrator user yet).
+
+III. DB connection:
 There currently is a DB connector that creates a singleton of connection object,
 and every data transaction will use the same connection to talk to the database.
 
-III. User Interfaces
-There currently are three GUI form built using Swing:
-1. Login
-The entrance of the whole program. When launching the program, a new Login instance
-will be instantiated. A User object will be constructed within Login's constructor.
-Both Login object and User object are singleton since there can be only one user
-logged in at one time. The User object will be passed along across different
-frontend form objects with login information coming through.
+IV. Test files:
+There are test files testing on methods implemented in the following four classes:
+1) User
+2) Student
+3) Faculty
+4) Administrator
+All tests passed.
 
-2. StudentHome
-Depends on what type of user object is created at runtime, if the user is a student,
-StudentHome will be popped up.
-It contains four functionalities:
-Search Course, Show My Course, View My Grade and Register and Drop Course.
+--Sample testing accounts:
+I. Student:
+1) Username:
+    james@uchicago.edu
+Password:
+    james1234
+Courses registered and grades:
+    Intro to Programming  A
+    Blockchain  B+
+    Parallel Programming  A-
+2) Username:
+    jason@uchicago.edu
+Password:
+    jason1234
+Courses registered and grades:
+    Intro to Programming  A-
 
-3. SearchCourse
-Every user should be able to query about detail information about a specific
-course once he gets logged in the system. The form will be present after user click
-on Search Course button on the homepage.
-
-IV. To be built:
-1. Complete all functionalities on StudentHome. Currently Show My Course functions
-well.
-
-2. Build FacultyHome as for the homepage for faculties after login. It should contain
-functionalities including Search Course, Assign Grade (assign grade to a specific student)
-and Change Grade(change grade for a specific student).
-
-3. It's yet to be further clarified how Student and Faculty objects should interact
-with different GUI form objects.
-
-4. Also SqlSyntax class might not be necessary and might be refactored.
+II. Faculty
+1) Username:
+    jane@uchicago.edu
+Password:
+    jane1234
+Course taught:
+    Intro to Programming
+2) Username:
+    mark@uchicago.edu
+Password:
+    mark1234
+Course taught:
+    Blockchain
+3) Username:
+    sam@uchicago.edu
+Password:
+    sam1234
+Course taught:
+    Parallel Programming

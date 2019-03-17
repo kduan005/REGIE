@@ -74,8 +74,6 @@ public class Login {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                if (stmt != null) stmt.close();
-//                if (conn != null) conn.close();
                 System.exit(0); }
         });
     }

@@ -55,6 +55,7 @@ public class FacultyMain {
                 try{
                     stmt = conn.createStatement();
                     String courseName = courseInput.getText();
+                    courseOutput.setText(null);
                     String sEmail = studentEmail.getText();
                     rs = stmt.executeQuery(faculty.showGrade(courseName, sEmail));
                     if (rs.next()){

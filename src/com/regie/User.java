@@ -16,4 +16,5 @@ public class User {
     public String searchCourse(String courseName) {
         return "SELECT * FROM courses WHERE name = '" + courseName + "'";
     }
+
 }

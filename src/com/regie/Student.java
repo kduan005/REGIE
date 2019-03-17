@@ -27,7 +27,7 @@ public class Student extends User{
     }
 
     public String showMyCourse() {
-        String sqlSyntax = String.format("SELECT name FROM REGIE.courses JOIN (SELECT course_id FROM REGIE.registrations WHERE student_id = %d) AS a ON id = a.course_id", id);
+        String sqlSyntax = String.format("SELECT name, id, faculty FROM REGIE.courses JOIN (SELECT course_id FROM REGIE.registrations WHERE student_id = %d) AS a ON id = a.course_id", id);
         return sqlSyntax;
     }
 
