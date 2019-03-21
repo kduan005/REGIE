@@ -12,7 +12,7 @@ public class UserTest {
     private Connection conn = DBConnection.getConn();
     private Statement stmt = null;
     private ResultSet rs = null;
-    private Administrater fakeAdmin = new Administrater("fakeAdmin", 1);
+    private Administrator fakeAdmin = new Administrator("fakeAdmin", 1);
 
     @Test
     public void searchCourse() {

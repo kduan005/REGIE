@@ -7,6 +7,7 @@ public class Faculty extends User {
     }
 
     public String showGrade(String courseName, String studentEmail){
+        //create query for showing grade for students registered in a course by using student email and course name
 
         String query = String.format("SELECT grade, c.faculty FROM REGIE.registrations r,\n" +
                 "REGIE.users u, REGIE.courses c\n" +
@@ -18,6 +19,8 @@ public class Faculty extends User {
     }
 
     public String assignGrade(String courseName, String studentEmail, String newGrade) {
+        //if student hasn't been assign a grade yet, assign the grade, else change the current grade to a new grade
+
         String query = String.format("UPDATE REGIE.registrations AS r\n" +
                 "INNER JOIN REGIE.users AS u\n" +
                 "ON u.typeid = r.student_id\n" +

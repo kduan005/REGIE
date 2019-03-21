@@ -34,12 +34,13 @@ public class StudentMain {
         searchCourse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //search for course info
                 try{
                     stmt = conn.createStatement();
                     String courseName = input.getText();
                     rs = stmt.executeQuery(student.searchCourse(courseName));
                     if (rs.next()){
-                        output.setText("Course Name: "+ rs.getString("name") + " Faculty: " + rs.getString("faculty") + " Location: "+ rs.getString("location") + " Time: " + rs.getString("time"));
+                        output.setText("Course Name: "+ rs.getString("name") + "; Faculty: " + rs.getString("faculty") + "; Location: "+ rs.getString("location") + "; Time: " + rs.getString("time"));
                     }else{
                         JOptionPane.showMessageDialog(null, "No course record in system. Please try again.");
                     }
@@ -51,15 +52,16 @@ public class StudentMain {
         registerCourse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //register a course
                 try{
                     stmt = conn.createStatement();
                     String courseName = input.getText();
                     rs = stmt.executeQuery(student.searchCourse(courseName));
                     if (rs.next()){
-                        output.setText("Course Name: "+ rs.getString("name") + " Faculty: " + rs.getString("faculty") + " Location: "+ rs.getString("location") + " Time: " + rs.getString("time"));
+                        output.setText("Course Name: "+ rs.getString("name") + "; Faculty: " + rs.getString("faculty") + "; Location: "+ rs.getString("location") + "; Time: " + rs.getString("time"));
                         Course course = new Course(rs.getString("name"), rs.getInt("id"), rs.getString("faculty"));
 
-                        // Search for courses student has already registered in
+                        // first search for courses student has already registered
                         ResultSet myCourseRs = stmt.executeQuery(student.showMyCourse());
                         int nCourse = 0;
                         HashSet<String> courseNames = new HashSet<>();
@@ -68,20 +70,21 @@ public class StudentMain {
                             courseNames.add(myCourseRs.getString("name"));
                         }
 
-                        // If student has already registered 3 courses
+                        // if student has already registered 3 courses, show exceeding course number limitation message
                         if (nCourse == 3){
                             JOptionPane.showMessageDialog(null, "You've exceed 3 courses limit. Please drop another course before you register.");
                         }
-                        // Student has already registered in the course
+                        // if student has already registered in the course, show message
                         else if (courseNames.contains(course.name) ){
                             JOptionPane.showMessageDialog(null, "You've already registered in the course.");
                         }
-                        // Can register
+                        // case when student can register course
                         else {
                             stmt.executeUpdate(student.registerCourse(course));
                             JOptionPane.showMessageDialog(null, String.format("You've successfully enrolled in %s", course.name));
                         }
                     }else{
+                        //no course entry matches input
                         JOptionPane.showMessageDialog(null, "No course record in system. Please try again.");
                     }
                 }catch (Exception ex) {
@@ -92,12 +95,13 @@ public class StudentMain {
         dropCourse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //allow student to drop a course
                 try{
                     stmt = conn.createStatement();
                     String courseName = input.getText();
                     rs = stmt.executeQuery(student.searchCourse(courseName));
                     if (rs.next()){
-                        output.setText("Course Name: "+ rs.getString("name") + " Faculty: " + rs.getString("faculty") + " Location: "+ rs.getString("location") + " Time: " + rs.getString("time"));
+                        output.setText("Course Name: "+ rs.getString("name") + "; Faculty: " + rs.getString("faculty") + "; Location: "+ rs.getString("location") + "; Time: " + rs.getString("time"));
                         Course course = new Course(rs.getString("name"), rs.getInt("id"), rs.getString("faculty"));
                         stmt.executeUpdate(student.dropCourse(course));
                         JOptionPane.showMessageDialog(null, String.format("You've successfully dropped from %s", course.name));
@@ -110,7 +114,9 @@ public class StudentMain {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
+                //go back to studentHome
+                try{if (rs != null)
+                        rs.close();
                     if(stmt!=null)
                         stmt.close();
                 }catch(SQLException se2){

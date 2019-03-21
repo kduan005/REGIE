@@ -35,12 +35,13 @@ public class FacultyMain {
         searchCourse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //search course functionality for faculty users
                 try{
                     stmt = conn.createStatement();
                     String courseName = courseInput.getText();
                     rs = stmt.executeQuery(faculty.searchCourse(courseName));
                     if (rs.next()){
-                        courseOutput.setText("Course Name: "+ rs.getString("name") + " Faculty: " + rs.getString("faculty") + " Location: "+ rs.getString("location") + " Time: " + rs.getString("time"));
+                        courseOutput.setText("Course Name: "+ rs.getString("name") + "; Faculty: " + rs.getString("faculty") + "; Location: "+ rs.getString("location") + "; Time: " + rs.getString("time"));
                     }else{
                         courseOutput.setText("Cannot find course record.");
                     }
@@ -52,6 +53,8 @@ public class FacultyMain {
         showGrade.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // show grade of student
+                // a faculty is not eligible to view grades for students of courses he/she is not teaching
                 try{
                     stmt = conn.createStatement();
                     String courseName = courseInput.getText();
@@ -61,14 +64,17 @@ public class FacultyMain {
                     if (rs.next()){
                         if (rs.getString("faculty").equals(faculty.name)){
                             if (rs.getString("grade") == null){
+                                grade.setText(null);
                                 JOptionPane.showMessageDialog(null, "The student hasn't been graded yet.");
                             }
                             grade.setText(rs.getString("grade"));
                         }else{
                             grade.setText(null);
+                            // faculties are only allowed to view grades for students of courses he/she is teaching
                             JOptionPane.showMessageDialog(null, "Sorry, you're not authorized to view the grade.");
                         }
                     }else{
+                        // no registration entry matches inputs
                         JOptionPane.showMessageDialog(null,"Cannot find grade record. Please try again.");
                     }
                 }catch (Exception ex){
@@ -79,6 +85,7 @@ public class FacultyMain {
         assignGrade.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // allow faculties to assign/change grades for students
                 try{
                     stmt = conn.createStatement();
                     String courseName = courseInput.getText();
@@ -91,10 +98,12 @@ public class FacultyMain {
                             JOptionPane.showMessageDialog(null, "Grade updated successfully!");
                         }else{
                             grade.setText(null);
+                            //faculties are only allowed to assign/change grades for students of course he/she is teaching
                             JOptionPane.showMessageDialog(null, "Sorry, you're not authorized to assign/update the grade");
                         }
                     }else{
                         grade.setText(null);
+                        //no registration entry matches inputs
                         JOptionPane.showMessageDialog(null, "Cannot find grade record. Please try again.");
                     }
                 }catch (Exception ex){
@@ -105,7 +114,9 @@ public class FacultyMain {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
+                // return to facultyHome
+                try{if (rs != null)
+                        rs.close();
                     if(stmt!=null)
                         stmt.close();
                     }catch(SQLException se2){

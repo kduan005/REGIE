@@ -1,10 +1,10 @@
 package com.regie;
 
-public class Administrater extends User {
+public class Administrator extends User {
     public String name;
     public int id;
 
-    public Administrater(String name, int id){
+    public Administrator(String name, int id){
         this.name = name;
         this.id = id;
     }

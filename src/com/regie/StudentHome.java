@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
-import java.util.HashSet;
 
 public class StudentHome {
     private JPanel home;
@@ -29,15 +28,18 @@ public class StudentHome {
         studentHomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         studentHomeFrame.pack();
         studentHomeFrame.setVisible(false);
+
         searchCourse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //redirect to studentHome if student user clicks on search course button
                 studentHomeFrame.setVisible(false);
                 StudentMain studentMain = new StudentMain();
                 studentMain.studentMainFrame.setVisible(true);
             }
         });
         registerOrDrop.addActionListener(new ActionListener() {
+            //also redirect to studentHome if student user clicks on register or drop button
             @Override
             public void actionPerformed(ActionEvent e) {
                 studentHomeFrame.setVisible(false);
@@ -46,6 +48,7 @@ public class StudentHome {
             }
         });
         showMyCourse.addActionListener(new ActionListener() {
+            //show all courses a student user has registered in
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
@@ -61,6 +64,7 @@ public class StudentHome {
             }
         });
         viewGrades.addActionListener(new ActionListener() {
+            //show all grades for current student user
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
@@ -75,6 +79,7 @@ public class StudentHome {
             }
         });
         logout.addActionListener(new ActionListener() {
+            //safely logout
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{

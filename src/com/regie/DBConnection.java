@@ -21,38 +21,10 @@ public class DBConnection{
             //Register JDBC driver
             Class.forName(JDBC_DRIVER);
 
-            //STEP 3: Open a connection
-            //System.out.println("Connecting to database...");
+            //Open a connection
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             return conn;
 
-            //STEP 4: Execute a query
-            //System.out.println("Creating statement...");
-//            stmt = conn.createStatement();
-//            String sql;
-//            sql = searchCourseSql;
-//            ResultSet rs = stmt.executeQuery(sql);
-
-            //STEP 5: Extract data from result set
-//            while(rs.next()){
-//                //Retrieve by column name
-//                int id  = rs.getInt("id");
-//                String name = rs.getString("name");
-//                String faculty = rs.getString("faculty");
-//                String location = rs.getString("location");
-//                Date date = rs.getDate("time");
-//
-//                //Display values
-//                System.out.print("ID: " + id);
-//                System.out.print(", com.regie.Course Name: " + name);
-//                System.out.print(", com.regie.Faculty: " + faculty);
-//                System.out.println(", location: " + location);
-//                System.out.println(", date:" + date);
-//            }
-//            //STEP 6: Clean-up environment
-//            rs.close();
-//            stmt.close();
-//            conn.close();
         }catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
@@ -62,22 +34,7 @@ public class DBConnection{
             e.printStackTrace();
             return null;
         }
-//        finally{
-//            //finally block used to close resources
-//            try{
-//                if(stmt!=null)
-//                    stmt.close();
-//            }catch(SQLException se2){
-//            }// nothing we can do
-//            try{
-//                if(conn!=null)
-//                    conn.close();
-//            }catch(SQLException se){
-//                se.printStackTrace();
-//            }//end finally try
-//        }//end try
-//        System.out.println("Goodbye!");
-    }//end connection
+    }
 
     public static Connection getConn(){
 //        create a conn that is singleton
@@ -85,5 +42,5 @@ public class DBConnection{
             conn = new DBConnection().connection();
         return conn;
     }
-}//end com.regie.DBConnection
+}
 

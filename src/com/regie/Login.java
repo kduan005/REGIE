@@ -29,7 +29,7 @@ public class Login {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //user can login if inputs match user information in database
                 try {
                     stmt = conn.createStatement();
                     String userEmail = email.getText();
@@ -44,6 +44,7 @@ public class Login {
                         int id = Integer.parseInt(rs.getString("typeid"));
 
                         switch (type){
+                            //define user type, currently supporting student "S" and faculty "F"
                             case "F":
                                 user = new Faculty(name, id, email);
                                 break;
@@ -52,6 +53,7 @@ public class Login {
                                 break;
                         }
 
+                        //show main page depends on user type
                         if (user instanceof Student){
                             loginFrame.setVisible(false);
                             StudentHome studentHome = new StudentHome();
@@ -62,6 +64,7 @@ public class Login {
                             facultyHome.facultyHomeFrame.setVisible(true);
                         }
 
+                    // invalid user
                     }else{
                         JOptionPane.showMessageDialog(null, "Passord or email is invalid");
                     }

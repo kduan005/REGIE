@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class FacultyHome {
     private JButton searchCourse;
-    private JButton assignOrDrop;
+    private JButton assignOrChange;
     private JPanel home;
     private JButton logout;
     JFrame facultyHomeFrame = new JFrame("FacultyHome");
@@ -20,17 +20,20 @@ public class FacultyHome {
         facultyHomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         facultyHomeFrame.pack();
         facultyHomeFrame.setVisible(false);
+
         searchCourse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // when faculty user clicks on search course, page will be redirected to facultyMain
                 facultyHomeFrame.setVisible(false);
                 FacultyMain facultyMain = new FacultyMain();
                 facultyMain.facultyMainFrame.setVisible(true);
             }
         });
-        assignOrDrop.addActionListener(new ActionListener() {
+        assignOrChange.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // when faculty user clicks on assign or change grades, page will also be redirected to facultyMain
                 facultyHomeFrame.setVisible(false);
                 FacultyMain facultyMain = new FacultyMain();
                 facultyMain.facultyMainFrame.setVisible(true);
@@ -39,6 +42,7 @@ public class FacultyHome {
         logout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //safely logout
                 try{
                     if(conn!=null)
                     conn.close();
