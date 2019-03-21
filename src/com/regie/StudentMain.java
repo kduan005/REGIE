@@ -40,7 +40,7 @@ public class StudentMain {
                     String courseName = input.getText();
                     rs = stmt.executeQuery(student.searchCourse(courseName));
                     if (rs.next()){
-                        output.setText("Course Name: "+ rs.getString("name") + "; Faculty: " + rs.getString("faculty") + "; Location: "+ rs.getString("location") + "; Time: " + rs.getString("time"));
+                        output.setText(Course.showDetails(rs));
                     }else{
                         JOptionPane.showMessageDialog(null, "No course record in system. Please try again.");
                     }
@@ -58,7 +58,7 @@ public class StudentMain {
                     String courseName = input.getText();
                     rs = stmt.executeQuery(student.searchCourse(courseName));
                     if (rs.next()){
-                        output.setText("Course Name: "+ rs.getString("name") + "; Faculty: " + rs.getString("faculty") + "; Location: "+ rs.getString("location") + "; Time: " + rs.getString("time"));
+                        output.setText(Course.showDetails(rs));
                         Course course = new Course(rs.getString("name"), rs.getInt("id"), rs.getString("faculty"));
 
                         // first search for courses student has already registered
@@ -101,7 +101,7 @@ public class StudentMain {
                     String courseName = input.getText();
                     rs = stmt.executeQuery(student.searchCourse(courseName));
                     if (rs.next()){
-                        output.setText("Course Name: "+ rs.getString("name") + "; Faculty: " + rs.getString("faculty") + "; Location: "+ rs.getString("location") + "; Time: " + rs.getString("time"));
+                        output.setText(Course.showDetails(rs));
                         Course course = new Course(rs.getString("name"), rs.getInt("id"), rs.getString("faculty"));
                         stmt.executeUpdate(student.dropCourse(course));
                         JOptionPane.showMessageDialog(null, String.format("You've successfully dropped from %s", course.name));

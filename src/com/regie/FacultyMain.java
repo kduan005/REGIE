@@ -41,7 +41,7 @@ public class FacultyMain {
                     String courseName = courseInput.getText();
                     rs = stmt.executeQuery(faculty.searchCourse(courseName));
                     if (rs.next()){
-                        courseOutput.setText("Course Name: "+ rs.getString("name") + "; Faculty: " + rs.getString("faculty") + "; Location: "+ rs.getString("location") + "; Time: " + rs.getString("time"));
+                        courseOutput.setText(Course.showDetails(rs));
                     }else{
                         courseOutput.setText("Cannot find course record.");
                     }
